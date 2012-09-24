@@ -22,9 +22,6 @@
 <plugin name="Contacts" value="org.apache.cordova.ContactManager" />
 <plugin name="Compass" value="org.apache.cordova.CompassListener" />
 
-<uses-permission android:name="android.permission.GET_ACCOUNTS" />
-<uses-permission android:name="android.permission.READ_CONTACTS" />
-<uses-permission android:name="android.permission.WRITE_CONTACTS" />
 
     <icon src="icon.png" />
     <icon src="res/icon/android/icon-36-ldpi.png"   gap:platform="android"    gap:density="ldpi" />
