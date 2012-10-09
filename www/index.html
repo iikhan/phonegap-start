@@ -2,6 +2,188 @@
 <head>   
  <title>Contact Example</title> 
    <script type="text/javascript" charset="utf-8" src="cordova-2.0.0.js"></script>  
+<script>
+
+
+var jsonp = {
+
+
+
+
+
+    callbackCounter: 0,
+
+  fetch: function(url, callback) {
+
+
+
+
+        var fn = 'JSONPCallback_' + this.callbackCounter++;
+
+
+
+
+
+        window[fn] = this.evalJSONP(callback);
+
+
+
+        url = url.replace('=JSONPCallback', '=' + fn);
+
+
+
+
+
+
+
+
+        var scriptTag = document.createElement('SCRIPT');
+
+
+
+
+
+
+
+        scriptTag.src = url;
+
+
+
+
+
+
+
+        document.getElementsByTagName('HEAD')[0].appendChild(scriptTag);
+
+
+
+    },
+
+
+
+
+
+
+    evalJSONP: function(callback) {
+
+
+        return function(data) {
+
+
+
+
+
+
+
+            var validJSON = false;
+
+
+        if (typeof data == "string") {
+console.log(data);
+
+	alert('string');
+
+            try {validJSON = JSON.parse(data);
+		
+
+
+} catch (e) {
+
+
+
+
+
+                /*invalid JSON*/}
+
+        } else {
+
+
+            validJSON = JSON.parse(JSON.stringify(data));
+		
+		
+		alert('json');
+		
+
+                window.console && console.warn(
+
+
+
+
+
+
+                'response data was not a JSON string');
+
+
+
+
+
+            }
+
+
+
+
+
+            if (validJSON) {
+
+
+                callback(validJSON);
+
+
+
+            } else {
+
+
+
+
+
+
+
+                alert("JSONP call returned invalid or empty JSON");
+
+
+
+
+
+
+
+            }
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+}
+
+
+var obamaTweets = "http://bruchsal.goering.de/DokuOnline.Web.UI/DokuTrace/WebServices/WareneingangWebService.asmx/WE?
+
+user=testag&password=testag&callback=JSONPCallback";
+jsonp.fetch(obamaTweets, function(data) {
+
+console.log(data);
+ 
+alert(data)});
+
+</script>
+
  </head>  <body>
 <h1>Logistic Sample Application</h1>    
 
